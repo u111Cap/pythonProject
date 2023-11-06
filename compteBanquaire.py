@@ -1,6 +1,4 @@
-import json
-
-print(dir(json))
+#retrait de l'import json 
 
 class CompteBancaire :
     def __init__(self,numeroCompte:int,nom:str,solde:float):
@@ -9,8 +7,25 @@ class CompteBancaire :
         self.solde=solde
         print(self.numeroCompte,self.solde,self.nom)
 
-    def Versement(self,montantVerse:float):
-        self.solde+=montantVerse
+    def Versement(self):
+        #ajout d'une boucle pour gerer les entrées du User
+        test=True
+        while test:    
+            try:
+                
+                montantVerse=float(input("Entrer le montant de votre versement: \n"))
+
+                 #controle sur le montant à verser les valeurs negatives  et caractères non admis
+                if montantVerse>=0:
+                    self.solde+=montantVerse
+                    print(f"Versement de {montantVerse} effectué. Nouveau solde : {self.solde}")
+                    break
+                elif montantVerse<0: 
+                    print("Le Montant  Entré Est Invalide")
+                    continue
+            except:
+                print("Valeur Invalide.Saisissez un montant en chiffre") 
+               
 
 
     def Retrait(self,motantRetire:float):
