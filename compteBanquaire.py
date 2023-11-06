@@ -28,23 +28,38 @@ class CompteBancaire :
                
 
 
-    def Retrait(self,motantRetire:float):
-        if self.solde > motantRetire:
-            self.solde -= motantRetire
-        else:
-            print("erreur ,vous n'avez pas cette somme dans votre compte")
+    def Retrait(self):
+         #ajout d'une boucle pour gerer les entrées du User
+        test=True
+        while test: 
+                try:
+                    motantRetire=float(input("Entrer le montant de votre retrait: \n"))
+                    # controle des valeurs negatives
+                    if motantRetire <0 :
+                        print("Valeur non reconnue.Veuillez entrer un numerique non négatif")
+                        continue
+                    elif self.solde > motantRetire:
+                        self.solde -= motantRetire
+                        print(f"Retrait de {motantRetire} effectué. Nouveau solde : {self.solde}")
+                        break
+                    else:
+                        print("erreur ,vous n'avez pas cette somme dans votre compte")
+                except:
+                    print("Valeur Invalide.Saisissez un montant en chiffre")    
 
-
+     # Pourquoi le calcul du Agios n'est pas le même dans tous les projets
     def Agios(self,nbJourDecouvert:int):
+       
         agio = (self.solde*nbJourDecouvert*0.05)/365
         self.solde -=agio
+    
 
     def Afficher(self):
-        print(f"le compte numero {self.numeroCompte} appartient a {self.nom} et a un solde de {self.solde} FCFA")
+        print(f"le compte numero {self.numeroCompte} appartient a {self.nom} avec un solde de {self.solde} FCFA")
 
-cap = CompteBancaire(111,"ivick debertrand",100000)
-
-cap.Versement(500000)
-cap.Retrait(250000)
+cap = CompteBancaire(111,"ivick debertrand",0)
+#permettre à l'utlisateur d'interagir avec le programme
+cap.Versement()
+cap.Retrait()
 cap.Agios(10)
-cap.Afficher()
+cap.Afficher() 
